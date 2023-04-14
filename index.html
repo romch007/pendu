@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Pendu</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css"
+    />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <h1 id="title">PENDU</h1>
+    <div id="welcome">
+      <button id="play" class="buttons">Jouer</button>
+    </div>
+    <div id="game" class="hidden">
+      <p id="guy">The Guy</p>
+      <div id="word-display"></div>
+      <input
+        id="character-input"
+        type="text"
+        placeholder="Entrez votre lettre"
+        maxlength="1"
+      />
+      <button id="try" class="buttons">Essayer</button>
+      <div id="wrong-letters"></div>
+    </div>
+  </body>
+</html>
