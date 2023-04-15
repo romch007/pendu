@@ -43,6 +43,9 @@ letterInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') tryLetter()
 })
 
+/**
+ * Start the game
+ */
 async function startGame() {
   welcomeScreen.classList.add('hidden')
   game.classList.remove('hidden')
@@ -70,10 +73,19 @@ async function startGame() {
   gameStarted = true
 }
 
+/**
+ * Check if a given character is a alphabetical letter (note: accentuation does not count as a letter here)
+ * @param str Given character
+ * @returns Is the character a letter
+ */
 function isLetter(str: string) {
   return str.length === 1 && str.match(/[a-z]/i)
 }
 
+/**
+ * Change the display of the letter input to valid or invalid
+ * @param isValid Is the input currently valid?
+ */
 function changeInputCorrectness(isValid: boolean) {
   if (isValid) {
     tryLetterButton.disabled = false
@@ -84,6 +96,10 @@ function changeInputCorrectness(isValid: boolean) {
   }
 }
 
+/**
+ * Display a guessed letter
+ * @param letter Guessed letter
+ */
 function displayGuessedLetter(letter: string) {
   const elements = guessedLettersDisplay.get(letter)!
   elements.forEach((element) => {
@@ -93,6 +109,10 @@ function displayGuessedLetter(letter: string) {
   })
 }
 
+/**
+ * Display a wrongly guessed letter
+ * @param letter The wrong letter
+ */
 function displayWrongLetter(letter: string) {
   const cell = document.createElement('div')
   cell.innerText = letter
@@ -101,6 +121,10 @@ function displayWrongLetter(letter: string) {
   setTimeout(() => cell.classList.remove('animated'), 400)
 }
 
+/**
+ * Hint user about the validity of the input
+ * @param letter The letter being currently typed
+ */
 function hintInput(letter: string) {
   // Check if letter is already guessed
   let correctInput = true
@@ -130,6 +154,9 @@ function hintInput(letter: string) {
   changeInputCorrectness(correctInput)
 }
 
+/**
+ * Check if all the letters have been guessed
+ */
 function checkWin() {
   let won = true
   guessedLetters.forEach((l) => {
@@ -138,12 +165,21 @@ function checkWin() {
   if (won) alert('You won!')
 }
 
+/**
+ * Get a random integer in [min; max]
+ * @param min The lower bound
+ * @param max The upper bound
+ * @returns The random number
+ */
 function randint(min: number, max: number): number {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+/**
+ * Try to guess a letter
+ */
 function tryLetter() {
   const letter = letterInput.value.toLowerCase()
   if (!isLetter(letter)) {
