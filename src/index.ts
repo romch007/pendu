@@ -104,7 +104,7 @@ function displayGuessedLetter(letter: string) {
   const elements = guessedLettersDisplay.get(letter)!
   elements.forEach((element) => {
     element.innerText = letter
-    element.classList.add('animated')
+    element.classList.add('animated', 'not-empty')
     setTimeout(() => element.classList.remove('animated'), 400)
   })
 }
