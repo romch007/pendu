@@ -1,5 +1,4 @@
-const wordsUrl =
-  "https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt";
+const wordsUrl = "./words.txt";
 
 const playButton = document.getElementById("play");
 const welcomeScreen = document.getElementById("welcome");
