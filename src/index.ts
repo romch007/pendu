@@ -15,7 +15,7 @@ const tryLetterButton = document.querySelector<HTMLButtonElement>('#try')!
 let gameStarted = false
 let wordToGuess = ''
 let guessedLetters: string[] = []
-let guessedLettersDisplay = new Map<string, HTMLSpanElement[]>()
+const guessedLettersDisplay = new Map<string, HTMLSpanElement[]>()
 const wrongLetters: string[] = []
 
 playButton.addEventListener('click', () => {
