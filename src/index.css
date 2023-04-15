@@ -1,4 +1,6 @@
-html {
+body {
+  background-image: url(background.jpg);
+  background-size: 200px;
   font-family: Hack;
 }
 
