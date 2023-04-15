@@ -11,5 +11,5 @@ yarn
 Start the project:
 
 ```bash
-yarn start
+yarn dev
 ```
