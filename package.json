@@ -4,6 +4,10 @@
   "description": "Chad pendu game PeiP2",
   "source": "src/index.html",
   "author": "Romain Chardiny <romain.chardiny@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romch007/pendu.git"
+  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "license": "MIT",
   "private": true,
