@@ -16,14 +16,18 @@ let gameStarted = false
 let wordToGuess = ''
 let guessedLetters: string[] = []
 const guessedLettersDisplay = new Map<string, HTMLSpanElement[]>()
-const wrongLetters: string[] = []
+let wrongLetters: string[] = []
 
 playButton.addEventListener('click', () => {
   startGame()
 })
 
 tryLetterButton.addEventListener('click', () => {
-  tryLetter()
+  if (gameStarted) {
+    tryLetter()
+  } else {
+    startGame()
+  }
 })
 
 letterInput.addEventListener('input', () => {
@@ -58,6 +62,11 @@ async function startGame() {
   wordToGuess = wordList[i]
 
   guessedLetters = Array(wordToGuess.length).fill('')
+  wrongLetters = []
+
+  guessedLettersDisplay.forEach((value) => value.forEach((element) => element.remove()))
+  Array.from(wrongLettersDiv.children).forEach((element) => element.remove())
+
   wordToGuess.split('').forEach((letter) => {
     const element = document.createElement('span')
     element.classList.add('guessed-letter')
@@ -70,7 +79,22 @@ async function startGame() {
     }
   })
   letterInput.value = ''
+  tryLetterButton.innerText = 'Essayer'
   gameStarted = true
+
+  console.log(wordToGuess)
+}
+
+function animateWin() {
+  const childs = Array.from(wordDisplay.children) as HTMLElement[]
+  const timeout = 100
+  childs.forEach((element, i) => {
+    setTimeout(() => {
+      element.classList.add('win-animation')
+      element.style.color = 'green'
+      setTimeout(() => element.classList.remove('win-animation'), timeout)
+    }, i * timeout)
+  })
 }
 
 /**
@@ -162,7 +186,11 @@ function checkWin() {
   guessedLetters.forEach((l) => {
     if (l === '') won = false
   })
-  if (won) alert('You won!')
+  if (won) {
+    animateWin()
+    tryLetterButton.innerText = 'Rejouer'
+    gameStarted = false
+  }
 }
 
 /**

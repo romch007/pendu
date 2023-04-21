@@ -154,6 +154,10 @@ body {
   transform: rotate(360deg);
 }
 
+.win-animation {
+  transform: translateY(-10px);
+}
+
 #canvas-container {
   height: 100%;
   border: 1px solid black;
