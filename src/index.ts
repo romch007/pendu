@@ -58,8 +58,7 @@ async function startGame() {
     .split('\n')
     .map((w: string) => w.replace(/[\n\r]+/g, '').toLowerCase())
 
-  const i = randint(0, wordList.length - 1)
-  wordToGuess = wordList[i]
+  wordToGuess = randomInArray(wordList)
 
   guessedLetters = Array(wordToGuess.length).fill('')
   wrongLetters = []
@@ -194,7 +193,7 @@ function checkWin() {
 }
 
 /**
- * Get a random integer in [min; max]
+ * Get a random integer in `[min; max]`
  * @param min The lower bound
  * @param max The upper bound
  * @returns The random number
@@ -203,6 +202,16 @@ function randint(min: number, max: number): number {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+/**
+ * Return a random element in an array
+ * @param array The array
+ * @returns The random element
+ */
+function randomInArray<T>(array: T[]): T {
+  const i = randint(0, array.length)
+  return array[i]
 }
 
 /**
