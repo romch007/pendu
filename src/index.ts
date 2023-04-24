@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const wordsUrl = 'https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt'
+const frenchWordsUrl =
+  'https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt'
+
+const englishWordsUrl = 'https://raw.githubusercontent.com/Xethron/Hangman/master/words.txt'
 
 const game = document.querySelector('#game')!
 const playButton = document.querySelector<HTMLButtonElement>('#play')!
@@ -17,6 +20,9 @@ let wordToGuess = ''
 let guessedLetters: string[] = []
 const guessedLettersDisplay = new Map<string, HTMLSpanElement[]>()
 let wrongLetters: string[] = []
+let wordList: string[] = []
+
+bootstrap()
 
 playButton.addEventListener('click', () => {
   startGame()
@@ -48,15 +54,20 @@ letterInput.addEventListener('keypress', (event) => {
 })
 
 /**
+ * Fetch dictionnary on page load
+ */
+async function bootstrap() {
+  wordList = (await axios.get(englishWordsUrl)).data
+    .split('\n')
+    .map((w: string) => w.replace(/[\n\r]+/g, '').toLowerCase())
+}
+
+/**
  * Start the game
  */
 async function startGame() {
   welcomeScreen.classList.add('hidden')
   game.classList.remove('hidden')
-
-  const wordList = (await axios.get(wordsUrl)).data
-    .split('\n')
-    .map((w: string) => w.replace(/[\n\r]+/g, '').toLowerCase())
 
   wordToGuess = randomInArray(wordList)
 
@@ -84,6 +95,9 @@ async function startGame() {
   console.log(wordToGuess)
 }
 
+/**
+ * Animate the win
+ */
 function animateWin() {
   const childs = Array.from(wordDisplay.children) as HTMLElement[]
   const timeout = 100
