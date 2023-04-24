@@ -56,7 +56,7 @@ letterInput.addEventListener('input', () => {
 })
 
 letterInput.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') tryLetter()
+  if (event.key === 'Enter' && gameStarted) tryLetter()
 })
 
 /**
@@ -97,6 +97,7 @@ async function startGame() {
   letterInput.value = ''
   tryLetterButton.innerText = 'Essayer'
   nbTries = 0
+  guyDisplay.innerText = ''
   gameStarted = true
 }
 
