@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { pendus } from './skin'
 
 const frenchWordsUrl =
   'https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt'
@@ -11,6 +12,7 @@ const welcomeScreen = document.querySelector('#welcome')!
 const gameScreen = document.querySelector('#game')!
 const wordDisplay = document.querySelector('#word-display')!
 const wrongLettersDiv = document.querySelector('#wrong-letters')!
+const guyDisplay = document.querySelector<HTMLPreElement>('#guy')!
 
 const letterInput = document.querySelector<HTMLInputElement>('#character-input')!
 const tryLetterButton = document.querySelector<HTMLButtonElement>('#try')!
@@ -21,6 +23,8 @@ let guessedLetters: string[] = []
 const guessedLettersDisplay = new Map<string, HTMLSpanElement[]>()
 let wrongLetters: string[] = []
 let wordList: string[] = []
+const maxTries = pendus.length
+let nbTries = 0
 
 bootstrap()
 
@@ -37,6 +41,8 @@ tryLetterButton.addEventListener('click', () => {
 })
 
 letterInput.addEventListener('input', () => {
+  if (!gameStarted) return
+
   const pressedKey = letterInput.value
   if (pressedKey === '') {
     changeInputCorrectness(true)
@@ -90,9 +96,8 @@ async function startGame() {
   })
   letterInput.value = ''
   tryLetterButton.innerText = 'Essayer'
+  nbTries = 0
   gameStarted = true
-
-  console.log(wordToGuess)
 }
 
 /**
@@ -108,6 +113,14 @@ function animateWin() {
       setTimeout(() => element.classList.remove('win-animation'), timeout)
     }, i * timeout)
   })
+}
+
+function animateLoss() {
+  const childs = Array.from(wordDisplay.children) as HTMLElement[]
+  childs.forEach((element) => {
+    element.style.color = 'red'
+  })
+  wordDisplay.classList.add('loss-animation')
 }
 
 /**
@@ -158,6 +171,10 @@ function displayWrongLetter(letter: string) {
   setTimeout(() => cell.classList.remove('animated'), 400)
 }
 
+function displayGuy() {
+  guyDisplay.innerText = pendus[nbTries - 1]
+}
+
 /**
  * Hint user about the validity of the input
  * @param letter The letter being currently typed
@@ -201,6 +218,14 @@ function checkWin() {
   })
   if (won) {
     animateWin()
+    tryLetterButton.innerText = 'Rejouer'
+    gameStarted = false
+  }
+}
+
+function checkLoss() {
+  if (nbTries >= maxTries) {
+    animateLoss()
     tryLetterButton.innerText = 'Rejouer'
     gameStarted = false
   }
@@ -251,6 +276,9 @@ function tryLetter() {
   if (!wasGuessed) {
     wrongLetters.push(letter)
     displayWrongLetter(letter)
+    nbTries++
+    displayGuy()
+    checkLoss()
   } else {
     displayGuessedLetter(letter)
     checkWin()
