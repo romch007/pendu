@@ -26,7 +26,7 @@ let wordList: string[] = []
 const maxTries = pendus.length
 let nbTries = 0
 
-bootstrap()
+fetchDictionnary()
 
 playButton.addEventListener('click', () => {
   startGame()
@@ -62,7 +62,7 @@ letterInput.addEventListener('keypress', (event) => {
 /**
  * Fetch dictionnary on page load
  */
-async function bootstrap() {
+async function fetchDictionnary() {
   wordList = (await axios.get(englishWordsUrl)).data
     .split('\n')
     .map((w: string) => w.replace(/[\n\r]+/g, '').toLowerCase())
