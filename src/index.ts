@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { pendus } from './skin'
+import { pendus, surprise } from './skin'
 
 const frenchWordsUrl =
   'https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt'
@@ -27,6 +27,12 @@ const maxTries = pendus.length
 let nbTries = 0
 
 fetchDictionnary()
+
+document.addEventListener('keypress', (event) => {
+  if (event.key === '²') {
+    guyDisplay.innerText = surprise
+  }
+})
 
 playButton.addEventListener('click', () => {
   startGame()
