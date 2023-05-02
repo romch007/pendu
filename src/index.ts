@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { pendus, surprise } from './skin'
+const susTrack = require('url:./sus.mp3')
 
 const frenchWordsUrl =
   'https://raw.githubusercontent.com/Taknok/French-Wordlist/master/francais.txt'
@@ -31,6 +32,8 @@ fetchDictionnary()
 document.addEventListener('keypress', (event) => {
   if (event.key === '²') {
     guyDisplay.innerText = surprise
+    const audio = new Audio(susTrack)
+    audio.play()
   }
 })
 
