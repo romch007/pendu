@@ -160,12 +160,14 @@ function changeInputCorrectness(isValid: boolean) {
  * Display a guessed letter
  * @param letter Guessed letter
  */
-function displayGuessedLetter(letter: string) {
+function displayGuessedLetter(letter: string, animate = true) {
   const elements = guessedLettersDisplay.get(letter)!
   elements.forEach((element) => {
     element.innerText = letter
-    element.classList.add('animated', 'not-empty')
-    setTimeout(() => element.classList.remove('animated'), 400)
+    if (animate) {
+      element.classList.add('animated', 'not-empty')
+      setTimeout(() => element.classList.remove('animated'), 400)
+    }
   })
 }
 
@@ -237,6 +239,7 @@ function checkLoss() {
   if (nbTries >= maxTries) {
     animateLoss()
     tryLetterButton.innerText = 'Rejouer'
+    showFullWord()
     gameStarted = false
   }
 }
@@ -295,4 +298,9 @@ function tryLetter() {
   }
 
   letterInput.value = ''
+}
+
+function showFullWord() {
+  const letters = [...wordToGuess]
+  letters.forEach((letter) => displayGuessedLetter(letter, false))
 }
