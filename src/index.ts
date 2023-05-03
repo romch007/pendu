@@ -33,6 +33,7 @@ document.addEventListener('keypress', (event) => {
   if (event.key === '²') {
     guyDisplay.innerText = surprise
     const audio = new Audio(susTrack)
+    audio.volume = 0.1
     audio.play()
   }
 })
@@ -108,6 +109,7 @@ async function startGame() {
   nbTries = 0
   guyDisplay.innerText = ''
   gameStarted = true
+  letterInput.focus()
 }
 
 /**
@@ -298,6 +300,7 @@ function tryLetter() {
   }
 
   letterInput.value = ''
+  letterInput.focus()
 }
 
 function showFullWord() {
