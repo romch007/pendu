@@ -303,6 +303,9 @@ function tryLetter() {
   letterInput.focus()
 }
 
+/**
+ * Display full word
+ */
 function showFullWord() {
   const letters = [...wordToGuess]
   letters.forEach((letter) => displayGuessedLetter(letter, false))
